@@ -1,12 +1,40 @@
+
 provider "kubernetes" {
-  config_path = "~/.kube/config" # Path to your kubeconfig file
+  config_path = "~/.kube/config"
 }
 
-resource "kubernetes_manifest" "flask_app_deployment" {
-  manifest = yamldecode(file("${path.module}/../k8s/deployment.yaml"))
+# Namespace for the Spring Boot application
+resource "kubernetes_namespace" "flask_app" {
+  metadata {
+    name = "flask-app"
+  }
 }
 
-# Deploy the Service resource using kubernetes_manifest
-resource "kubernetes_manifest" "flask_app_service" {
-  manifest = yamldecode(file("${path.module}/../k8s/service.yaml"))
+resource "kubernetes_manifest" "argocd_application" {
+  manifest = {
+    apiVersion = "argoproj.io/v1alpha1"
+    kind       = "Application"
+    metadata = {
+      name      = "flask-app"
+      namespace = "argocd"
+    }
+    spec = {
+      project = "default"
+      source = {
+        repoURL = "https://github.com/Farah-Abdelkefi/flask-app.git"
+        path    = "k8s"
+        targetRevision = "HEAD"
+      }
+      destination = {
+        server    = "https://kubernetes.default.svc"
+        namespace = kubernetes_namespace.flask_app.metadata[0].name
+      }
+      syncPolicy = {
+        automated = {
+          prune = true
+          selfHeal = true
+        }
+      }
+    }
+  }
 }
