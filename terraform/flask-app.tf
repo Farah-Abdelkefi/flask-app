@@ -1,9 +1,4 @@
 
-provider "kubernetes" {
-  config_path = "~/.kube/config"
-}
-
-# Namespace for the Spring Boot application
 resource "kubernetes_namespace" "flask_app" {
   metadata {
     name = "flask-app"
@@ -16,7 +11,7 @@ resource "kubernetes_manifest" "argocd_application" {
     kind       = "Application"
     metadata = {
       name      = "flask-app"
-      namespace = "argocd"
+      namespace = "argocd-app"
     }
     spec = {
       project = "default"
