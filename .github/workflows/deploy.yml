@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - main
-    # paths:
-    #   - "app.py"
-    #   - "requirements.txt"
-    #   - "Dockerfile"
-    #   - "k8s/**"
-    #   - "terraform/**"
+    paths:
+      - "app.py"
+      - "requirements.txt"
+      - "Dockerfile"
+      - "k8s/**"
+      - "terraform/**"
 
 jobs:
   # Job 1: Build and Push Docker Image
