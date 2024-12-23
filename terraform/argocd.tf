@@ -32,7 +32,7 @@ resource "kubernetes_manifest" "argocd_metrics" {
       name      = "argocd-metrics"
       namespace = "argocd-app"  # Updated namespace to argocd-app
       labels = {
-        release = "prometheus-operator"
+        release = "prometheus"
       }
     }
     spec = {
@@ -61,7 +61,7 @@ resource "kubernetes_manifest" "argocd_server_metrics" {
       name      = "argocd-server-metrics"
       namespace = "argocd-app"  # Updated namespace to argocd-app
       labels = {
-        release = "prometheus-operator"
+        release = "prometheus"
       }
     }
     spec = {
@@ -90,7 +90,7 @@ resource "kubernetes_manifest" "argocd_repo_server_metrics" {
       name      = "argocd-repo-server-metrics"
       namespace = "argocd-app"  # Updated namespace to argocd-app
       labels = {
-        release = "prometheus-operator"
+        release = "prometheus"
       }
     }
     spec = {
