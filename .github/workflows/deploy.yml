@@ -43,7 +43,7 @@ jobs:
 
   # Job 2: Run Terraform
   terraform:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build-docker
     steps:
     # Step 1: Checkout the repository
@@ -60,7 +60,7 @@ jobs:
 
   # Job 3: Push Terraform State Back to GitHub
   push-terraform-state:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: terraform
     steps:
     # Step 1: Checkout the repository
