@@ -14,7 +14,7 @@ on:
 jobs:
   # Job 1: Build and Push Docker Image
   build-docker:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     # Step 1: Checkout the repository
     - name: Checkout code
